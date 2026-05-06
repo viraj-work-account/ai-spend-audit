@@ -19,4 +19,13 @@ export const TOOLS = [
     name: "Gemini",
     plans: ["Pro", "Ultra", "API"],
   },
-];
+] as const;
+
+export type ToolName = (typeof TOOLS)[number]["name"];
+
+export type Tool = (typeof TOOLS)[number];
+
+export type PlanName<T extends ToolName> = Extract<
+  Tool,
+  { name: T }
+>["plans"][number];
